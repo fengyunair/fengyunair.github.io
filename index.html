@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FY-AIR – Starter Template</title>
-  <meta name="description" content="A lightweight, accessible docs-style template inspired by geoschem.github.io" />
+  <title>FY-AIR</title>
+  <meta name="description" content="FengYun satellite atmospheric composition" />
   <style>
     :root {
       --bg: #ffffff;
@@ -164,13 +164,13 @@
       <button class="menu-btn" aria-expanded="false" aria-controls="sidebar" id="menuToggle">☰ Menu</button>
       <a class="brand" href="#">
         <span class="logo"><span></span></span>
-        <span>FY-AIR</span>
+        <span>FengYun-AIR</span>
       </a>
       <div class="navlinks" role="navigation" aria-label="Primary">
-        <a href="#" aria-current="page">Home</a>
-        <a href="#team">Team</a>
-        <a href="#data">Data</a>
-        <a href="#publications">Publications</a>
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="team.html">Team</a>
+        <a href="data.html">Data</a>
+        <a href="publications.html">Publications</a>
       </div>
       <div class="spacer"></div>
     </div>
@@ -181,28 +181,28 @@
       <h3>On this page</h3>
       <ul class="snav">
         <li><a class="active" href="#">Overview</a></li>
-        <li><a href="#team">Team</a></li>
-        <li><a href="#data">Data</a></li>
-        <li><a href="#publications">Publications</a></li>
+        <li><a href="#updates">Updates</a></li>
       </ul>
     </aside>
 
     <section class="content">
       <div class="hero">
         <h1>Welcome to FY-AIR</h1>
-        <p>A pure HTML/CSS starter inspired by geoschem.github.io — includes a sticky sidebar, cards, and accessible defaults on a white background.</p>
+        <p>FengYun Satellite Atmospheric Composition Data Portal @ Peking University</p>
       </div>
 
       <div class="three-boxes">
         <div class="box">
-          <h2>Image</h2>
-          <img src="https://via.placeholder.com/400x250" alt="Placeholder image" />
+          <!-- <h2>Image</h2> -->
+          <img src="img/GIIRS_HIRAS.png" alt="FengYun Hyperspctral Infrared Sounders" />
         </div>
-        <div class="box">
-          <h2>Introduction</h2>
-          <p>Provide a short description of your project, its purpose, and background information. This section is ideal for new visitors to quickly understand what FY-AIR is about.</p>
+        <div class="box" id="Overview">
+          <!-- <h2>Introduction</h2> -->
+          <h2>Overview: Earth's atmosphere monitored from China's FengYun GEO/LEO satellites</h2>
+          <p>The Geostationary Interferometric Infrared Sounder (GIIRS) onboard China’s FengYun-4 satellite series (FY-4A/B) is the first GEO hyperspectral infrared sounder. FY-4A and FY-4B currently operate at 86.5°E and 105°E, respectively. The GIIRS observations cover most of East Asia with a focus on China, with a 2-hour observing cycle. GIIRS measures at a 12 km spatial resolution at nadir and was recently used to retrieve ammonia (NH3; Zeng et al. 2023a), carbon monoxide (CO; Zeng et al. 2023b), formic acid (HCOOH; Zeng et al. 2024), and ozone (O3; Liu et al., 2025).</p>
+          <p>China's FengYun-3 (FY-3) series of meteorological satellites have formed a constellation of hyperspectral infrared sounders in dawn-dusk, mid-morning, and afternoon sun-synchronous orbits (see Figure), providing six global coverages each day with equatorial crossing times at 5:30 am/pm (FY-3E), 10:00 am/pm (FY-3F), and 2:00 am/pm (FY-3D). While the mid-morning and early afternoon orbits are already used by sounders like IASI and TROPOMI (or CrIS), respectively, there is an important observational gap during the dawn-dusk which is filled by FY-3E launched in 2021. It has already been shown that the High Spectral Infrared Atmospheric Sounder (HIRAS) on board the FY-3 series can detect wildfire-induced enhancements of trace gases, including carbon monoxide, volatile organic compounds, and volcanic sulfur dioxide (Zeng et al., 2025; Hua et al., 2025; Zeng et al., 2025).</p>
         </div>
-        <div class="box">
+        <div class="box" id="updates">
           <h2>Updates</h2>
           <ul>
             <li>Update 1 – Project launched.</li>
@@ -212,7 +212,7 @@
         </div>
       </div>
 
-      <article class="doc" id="team">
+<!--       <article class="doc" id="team">
         <h1>Team</h1>
         <p>Introduce your project team members here.</p>
       </article>
@@ -225,14 +225,13 @@
       <article class="doc" id="publications">
         <h1>Publications</h1>
         <p>List your related publications and research outputs here.</p>
-      </article>
+      </article> -->
     </section>
   </main>
 
   <footer>
     <div class="footwrap">
-      <div>© <span id="year"></span> FY-AIR. Built with a pure HTML/CSS template.</div>
-      <div><a href="#license">License</a> · <a href="#community">Community</a> · <a href="#changelog">Changelog</a></div>
+      <div>© <span id="year"></span> FY-AIR team at PKU </div>
     </div>
   </footer>
 
