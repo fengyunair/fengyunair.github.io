@@ -87,7 +87,11 @@
       border-color: red;
       z-index: 1;
     }
-
+    .brand-title {
+      font-size: 28px;   /* larger than before (22px) */
+      font-weight: 700;
+      color: #000000;    /* pure black */
+    }
     .navlinks { display:flex; gap:14px; margin-left: 8px; }
     .navlinks a { color: var(--text); padding:6px 8px; border-radius:8px; font-size: 18px; font-weight:600; }
     .navlinks a[aria-current="page"], .navlinks a:hover { background: var(--card-bg); text-decoration:none; }
@@ -163,8 +167,8 @@
     <div class="wrap">
       <button class="menu-btn" aria-expanded="false" aria-controls="sidebar" id="menuToggle">☰ Menu</button>
       <a class="brand" href="#">
-        <span class="logo"><span></span></span>
-        <span>FengYun-AIR</span>
+        <img src="img/logo.png" alt="FY-AIR logo" class="logo" style="width:40px;height:auto;" />
+        <span class="brand-title">FengYun AIR</span>
       </a>
       <div class="navlinks" role="navigation" aria-label="Primary">
         <a href="index.html" aria-current="page">Home</a>
