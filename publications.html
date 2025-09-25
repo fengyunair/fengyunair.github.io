@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FY-AIR</title>
+  <meta name="description" content="FengYun satellite atmospheric composition" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --muted: #5f6368;
+      --border: #e6e8eb;
+      --primary: #2962ff;
+      --primary-ink: #1030a6;
+      --nav-bg: #ffffff;
+      --nav-blur: rgba(255,255,255,0.8);
+      --code-bg: #f6f8fa;
+      --card-bg: #fafbfc;
+      --shadow: 0 1px 2px rgba(0,0,0,.06), 0 6px 24px rgba(0,0,0,.06);
+      --radius: 12px;
+      --sw: 1px;
+      --content-max: 1200px;
+      --sidebar-w: 200px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(1.2) blur(6px);
+      background: var(--nav-blur);
+      border-bottom: var(--sw) solid var(--border);
+    }
+    .nav .wrap {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:700; font-size: 22px; }
+    .brand .logo {
+      position: relative;
+      width: 28px;
+      height: 28px;
+    }
+    .brand .logo span,
+    .brand .logo::before,
+    .brand .logo::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: transparent;
+      border: 2px solid;
+    }
+    .brand .logo span {
+      width: 8px;
+      height: 8px;
+      border-color: blue;
+      z-index: 3;
+    }
+    .brand .logo::before {
+      width: 16px;
+      height: 16px;
+      border-color: green;
+      z-index: 2;
+    }
+    .brand .logo::after {
+      width: 24px;
+      height: 24px;
+      border-color: red;
+      z-index: 1;
+    }
+
+    .navlinks { display:flex; gap:14px; margin-left: 8px; }
+    .navlinks a { color: var(--text); padding:6px 8px; border-radius:8px; font-size: 18px; font-weight:600; }
+    .navlinks a[aria-current="page"], .navlinks a:hover { background: var(--card-bg); text-decoration:none; }
+
+    .spacer { flex: 1; }
+    .menu-btn { display:none; margin-left:4px; border: var(--sw) solid var(--border); background:#fff; border-radius:8px; padding:8px 10px; }
+
+    .layout {
+      max-width: var(--content-max);
+      margin: 0 auto; padding: 24px 16px 64px;
+      display: grid; grid-template-columns: var(--sidebar-w) 1fr;
+      gap: 24px;
+    }
+
+    .sidebar {
+      position: sticky; top: 64px; align-self: start; border: var(--sw) solid var(--border); border-radius: var(--radius); padding: 16px; background: #fff;
+      height: max-content;
+    }
+    .sidebar h3 { margin: 0 0 12px; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+    .snav { list-style: none; padding: 0; margin: 0; }
+    .snav li { margin: 4px 0; }
+    .snav a { display: block; padding: 10px 12px; border-radius: 8px; color: var(--text); font-size: 16px; font-weight: 500; }
+    .snav a.active, .snav a:hover { background: var(--card-bg); text-decoration: none; }
+
+    .content { min-width: 0; }
+    .hero {
+      border: var(--sw) solid var(--border); border-radius: var(--radius); padding: 24px; background: #fff;
+      display: grid; gap: 12px;
+    }
+    .hero h1 { font-size: 32px; line-height: 1.2; margin: 0; }
+    .hero p { margin: 0; color: var(--muted); }
+    .hero .cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+    .btn {
+      display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius: 10px; border: var(--sw) solid var(--border); background:#fff;
+      font-weight:600; text-decoration:none;
+      box-shadow: var(--shadow);
+    }
+    .btn.primary { background: var(--primary); color:#fff; border-color: transparent; }
+    .btn.primary:hover { filter: saturate(1.1) brightness(.98); }
+
+    .three-boxes {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .box {
+      border: var(--sw) solid var(--border);
+      border-radius: var(--radius);
+      background: #fff;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+    .box h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+
+    footer { border-top: var(--sw) solid var(--border); margin-top: 48px; padding: 24px 16px; color: var(--muted); }
+    .footwrap { max-width: var(--content-max); margin: 0 auto; display: grid; gap: 12px; }
+
+    @media (max-width: 1100px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .menu-btn { display:inline-flex; }
+      .sidebar { display: none; }
+      .sidebar.open { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="Main">
+    <div class="wrap">
+      <button class="menu-btn" aria-expanded="false" aria-controls="sidebar" id="menuToggle">☰ Menu</button>
+      <a class="brand" href="#">
+        <span class="logo"><span></span></span>
+        <span>FengYun-AIR</span>
+      </a>
+      <div class="navlinks" role="navigation" aria-label="Primary">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="team.html">Team</a>
+        <a href="data.html">Data</a>
+        <a href="publications.html">Publications</a>
+      </div>
+      <div class="spacer"></div>
+    </div>
+  </nav>
+
+  <main class="layout">
+    <aside class="sidebar" id="sidebar">
+      <h3>On this page</h3>
+      <ul class="snav">
+        <li><a class="active" href="#journals">Journals</a></li>
+        <li><a href="#chapters">Chapters</a></li>
+        <li><a href="#others">Others</a></li>
+      </ul>
+    </aside>
+
+    <section class="content">
+      <div class="hero">
+        <h1>Publications</h1>
+        <p>FengYun Satellite Atmospheric Composition Data Portal @ Peking University</p>
+      </div>
+
+      <div class="three-boxes">
+<!--         <div class="box">
+          <h2>Image</h2>
+          <img src="img/GIIRS_HIRAS.png" alt="Placeholder image" />
+        </div> -->
+        <div class="box" id="journals">
+          <h2>Journals</h2>
+          <ul>
+            <li>[10] Liu, S., et al. + Z.-C. Zeng*, Observing the diurnal cycle of atmospheric ozone from the Geostationary Interferometric Infrared Sounder (GIIRS) on board FengYun-4B, Journal of Geophysical Research: Atmospheres, 130, e2024JD042292. https://doi.org/10.1029/2024JD042292</li>
+            <li>[9] Hua, J., et al. + Z.-C. Zeng*, Observing volatile organic compounds emitted from Canadian wildfires in 2023 from FengYun-3E/HIRAS-II in a dawn-dusk sun-synchronous orbit, Remote Sensing of Environment, 327, 114829, https://doi.org/10.1016/j.rse.2025.114829</li>
+            <li>[8] Z.-C. Zeng* (2025), Global carbon monoxide and formic acid observed from FY-3E/HIRAS-II in a dawn-dusk sun-synchronous orbit, Journal of Quantitative Spectroscopy and Radiative Transfer, Vol. 333, https://doi.org/10.1016/j.jqsrt.2024.109336. [Part of a JQSRT special issue for Elsevier/JQSRT Richard M. Goody award recipients]</li>
+            <li>[7] Sheng, M., Y. Hou, H. Song, X. Ye, L. Lei, P. Ma, and Z.-C. Zeng* (2025), Estimating anthropogenic CO2 emissions from China’s Yangtze River Delta using OCO-2 observations and WRF-Chem simulations, Remote Sensing of Environment, https://doi.org/10.1016/j.rse.2024.114515.</li>
+            <li>[6] Tai-Long He*; Glenn-Michael Oomen*; Wenfu Tang; Idir Bouarar; Kelly Chance; Cathy Clerbaux; David Edwards; Henk Eskes; Benjamin Gaubert; Claire Granier; Marc Guevara; Daniel Jacob; Jennifer Kaiser; Jhoon Kim; Shobha Kondragunta; Xiong Liu; Eloise Marais; Kazuyuki Miyazaki; Rokjin Park; Vincent-Henri Peuch; Gabriele Pfister; Andreas Richter; Trissevgeni Stavrakou; Raid M. Suleiman; Alexander J. Turner; Ben Veilhelmann; Zhao-Cheng Zeng; Guy Brasseur (2025), Challenges and opportunities offered by geostationary space observations for air quality research and emission monitoring, Bulletin of the American Meteorological Society, https://doi.org/10.1175/BAMS-D-23-0145.1.</li>
+            <li>[5] Zeng, Z.-C.*, B. Franco, L. Clarisse, L. Lee, C. Qi, and F. Lu (2024), Observing a Volatile Organic Compound from a Geostationary Infrared Sounder: HCOOH from FengYun-4B/GIIRS, JGR-Atmosphere, 129, e2024JD041352. https://doi.org/10.1029/2024JD041352.</li>
+            <li>[4] He, Z., Gao, L., Liang, M., and Zeng, Z.-C.*: A survey of methane point source emissions from coal mines in Shanxi province of China using AHSI on board Gaofen-5B, EGUsphere [preprint], https://doi.org/10.5194/egusphere-2023-3047, 2023.</li>
+            <li>[3] Zeng, Z.-C.*, T. Pongetti, S. Newman, T. Oda, K. Gurney, P. I. Palmer, Y. L. Yung, and S. P. Sander* (2023), Decadal decrease in Los Angeles methane emissions is much smaller than bottom-up estimates, Nature Communications, 14, 5353, https://doi.org/10.1038/s41467-023-40964-w.</li>
+            <li>[2] Zeng, Z.-C.*, Lee, L., Qi, C., L. Clarisse, and M. Van Damme: Optimal estimation retrieval of tropospheric ammonia from the Geostationary Interferometric Infrared Sounder onboard FengYun-4B, Atmospheric Measurement Techniques, 16, 3693–3713, https://doi.org/10.5194/amt-16-3693-2023, 2023.</li>
+            <li>[1] Zeng, Z.-C.*, Lee, L., and Qi, C.: Diurnal carbon monoxide observed from a geostationary infrared hyperspectral sounder: first result from GIIRS on board FengYun-4B, Atmospheric Measurement Techniques, 16, 3059–3083, https://doi.org/10.5194/amt-16-3059-2023, 2023. [AMT Highlight Paper] </li>
+          </ul>
+        </div>
+        <div class="box" id="chapters">
+          <h2>Chapters</h2>
+          <ul>
+            <li>Update 1</li>
+            <li>Update 2</li>
+            <li>Update 3</li>
+          </ul>
+        </div>
+        <div class="box" id="others">
+          <h2>Others</h2>
+          <ul>
+            <li>Update 1</li>
+            <li>Update 2</li>
+            <li>Update 3</li>
+          </ul>
+        </div>
+      </div>
+
+<!--       <article class="doc" id="team">
+        <h1>Team</h1>
+        <p>Introduce your project team members here.</p>
+      </article>
+
+      <article class="doc" id="data">
+        <h1>Data</h1>
+        <p>Describe your datasets, sources, and data access instructions.</p>
+      </article>
+
+      <article class="doc" id="publications">
+        <h1>Publications</h1>
+        <p>List your related publications and research outputs here.</p>
+      </article> -->
+    </section>
+  </main>
+
+  <footer>
+    <div class="footwrap">
+      <div>© <span id="year"></span> FY-AIR team at PKU </div>
+    </div>
+  </footer>
+
+  <script>
+    const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+    const btn = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebar');
+    if (btn && sidebar) {
+      btn.addEventListener('click', () => {
+        const open = sidebar.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    }
+  </script>
+</body>
+</html>
