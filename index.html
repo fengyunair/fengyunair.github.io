@@ -1,160 +1,251 @@
 <!doctype html>
-<html>
-
+<html lang="en">
 <head>
-  <title>FengYun Satellite Atmospheric Composition Data Portal</title>
-  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
-  <link href="css/frame.css" media="screen" rel="stylesheet" type="text/css" />
-  <link href="css/controls.css" media="screen" rel="stylesheet" type="text/css" />
-  <link href="css/custom.css" media="screen" rel="stylesheet" type="text/css" />
-  <link href='css/css1.css' rel='stylesheet' type='text/css'>
-  <link href='css/css2.css' rel='stylesheet' type='text/css'>
-  <link href="css/css3.css" rel="stylesheet">
-  <link href="css/menu.css" rel="stylesheet" type="text/css" >
-  <script src="js/jquery.min.js"></script>
-</head>
-
-<body style="padding-top: 0px;">
- 
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FY-AIR – Starter Template</title>
+  <meta name="description" content="A lightweight, accessible docs-style template inspired by geoschem.github.io" />
   <style>
-    @media (max-width: 600px) {
-       .container{
-        width: 100vw !important;
-        flex-wrap:wrap ;
-       }
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --muted: #5f6368;
+      --border: #e6e8eb;
+      --primary: #2962ff;
+      --primary-ink: #1030a6;
+      --nav-bg: #ffffff;
+      --nav-blur: rgba(255,255,255,0.8);
+      --code-bg: #f6f8fa;
+      --card-bg: #fafbfc;
+      --shadow: 0 1px 2px rgba(0,0,0,.06), 0 6px 24px rgba(0,0,0,.06);
+      --radius: 12px;
+      --sw: 1px;
+      --content-max: 1200px;
+      --sidebar-w: 200px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(1.2) blur(6px);
+      background: var(--nav-blur);
+      border-bottom: var(--sw) solid var(--border);
+    }
+    .nav .wrap {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:700; font-size: 22px; }
+    .brand .logo {
+      position: relative;
+      width: 28px;
+      height: 28px;
+    }
+    .brand .logo span,
+    .brand .logo::before,
+    .brand .logo::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: transparent;
+      border: 2px solid;
+    }
+    .brand .logo span {
+      width: 8px;
+      height: 8px;
+      border-color: blue;
+      z-index: 3;
+    }
+    .brand .logo::before {
+      width: 16px;
+      height: 16px;
+      border-color: green;
+      z-index: 2;
+    }
+    .brand .logo::after {
+      width: 24px;
+      height: 24px;
+      border-color: red;
+      z-index: 1;
+    }
+
+    .navlinks { display:flex; gap:14px; margin-left: 8px; }
+    .navlinks a { color: var(--text); padding:6px 8px; border-radius:8px; font-size: 18px; font-weight:600; }
+    .navlinks a[aria-current="page"], .navlinks a:hover { background: var(--card-bg); text-decoration:none; }
+
+    .spacer { flex: 1; }
+    .menu-btn { display:none; margin-left:4px; border: var(--sw) solid var(--border); background:#fff; border-radius:8px; padding:8px 10px; }
+
+    .layout {
+      max-width: var(--content-max);
+      margin: 0 auto; padding: 24px 16px 64px;
+      display: grid; grid-template-columns: var(--sidebar-w) 1fr;
+      gap: 24px;
+    }
+
+    .sidebar {
+      position: sticky; top: 64px; align-self: start; border: var(--sw) solid var(--border); border-radius: var(--radius); padding: 16px; background: #fff;
+      height: max-content;
+    }
+    .sidebar h3 { margin: 0 0 12px; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+    .snav { list-style: none; padding: 0; margin: 0; }
+    .snav li { margin: 4px 0; }
+    .snav a { display: block; padding: 10px 12px; border-radius: 8px; color: var(--text); font-size: 16px; font-weight: 500; }
+    .snav a.active, .snav a:hover { background: var(--card-bg); text-decoration: none; }
+
+    .content { min-width: 0; }
+    .hero {
+      border: var(--sw) solid var(--border); border-radius: var(--radius); padding: 24px; background: #fff;
+      display: grid; gap: 12px;
+    }
+    .hero h1 { font-size: 32px; line-height: 1.2; margin: 0; }
+    .hero p { margin: 0; color: var(--muted); }
+    .hero .cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+    .btn {
+      display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius: 10px; border: var(--sw) solid var(--border); background:#fff;
+      font-weight:600; text-decoration:none;
+      box-shadow: var(--shadow);
+    }
+    .btn.primary { background: var(--primary); color:#fff; border-color: transparent; }
+    .btn.primary:hover { filter: saturate(1.1) brightness(.98); }
+
+    .three-boxes {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .box {
+      border: var(--sw) solid var(--border);
+      border-radius: var(--radius);
+      background: #fff;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+    .box h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+
+    footer { border-top: var(--sw) solid var(--border); margin-top: 48px; padding: 24px 16px; color: var(--muted); }
+    .footwrap { max-width: var(--content-max); margin: 0 auto; display: grid; gap: 12px; }
+
+    @media (max-width: 1100px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .menu-btn { display:inline-flex; }
+      .sidebar { display: none; }
+      .sidebar.open { display: block; }
     }
   </style>
-
-    <div class="navbar navbar-inverse navbar-static-top" role="navigation">
-      <div class="container" role="navigation">
-        <!--ul class="nav navbar-nav navbar-left">
-                      <li><a href="index.html">FengYun Satellite Atmospheric Composition Data Portal</a></li>
-        </ul-->
-        <ul class="nav navbar-nav navbar-right">
-                <li id="custom"><a href="index.html">主页|Home</a></li>
-                <li><a href="data.html">数据|Data</a></li>
-                <li><a href="team.html">团队|Team</a></li>
-                <li><a href="publications.html">论文|Publications</a></li>
-        </ul>
+</head>
+<body>
+  <nav class="nav" aria-label="Main">
+    <div class="wrap">
+      <button class="menu-btn" aria-expanded="false" aria-controls="sidebar" id="menuToggle">☰ Menu</button>
+      <a class="brand" href="#">
+        <span class="logo"><span></span></span>
+        <span>FY-AIR</span>
+      </a>
+      <div class="navlinks" role="navigation" aria-label="Primary">
+        <a href="#" aria-current="page">Home</a>
+        <a href="#team">Team</a>
+        <a href="#data">Data</a>
+        <a href="#publications">Publications</a>
       </div>
+      <div class="spacer"></div>
     </div>
-  
-  <div class="content-container">
-    <!-------------------------------------------------------------------------------------------->
-    <div class="content-container">
-      <div class="banner" style="background: url('img/header2.jpeg') no-repeat center; background-size: cover; height: 260px;">
-        <div class="banner-table flex-column">
+  </nav>
+
+  <main class="layout">
+    <aside class="sidebar" id="sidebar">
+      <h3>On this page</h3>
+      <ul class="snav">
+        <li><a class="active" href="#">Overview</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#data">Data</a></li>
+        <li><a href="#publications">Publications</a></li>
+      </ul>
+    </aside>
+
+    <section class="content">
+      <div class="hero">
+        <h1>Welcome to FY-AIR</h1>
+        <p>A pure HTML/CSS starter inspired by geoschem.github.io — includes a sticky sidebar, cards, and accessible defaults on a white background.</p>
+      </div>
+
+      <div class="three-boxes">
+        <div class="box">
+          <h2>Image</h2>
+          <img src="https://via.placeholder.com/400x250" alt="Placeholder image" />
+        </div>
+        <div class="box">
+          <h2>Introduction</h2>
+          <p>Provide a short description of your project, its purpose, and background information. This section is ideal for new visitors to quickly understand what FY-AIR is about.</p>
+        </div>
+        <div class="box">
+          <h2>Updates</h2>
+          <ul>
+            <li>Update 1 – Project launched.</li>
+            <li>Update 2 – Added dataset for analysis.</li>
+            <li>Update 3 – New publication released.</li>
+          </ul>
         </div>
       </div>
-      <!-------------------------------------------------------------------------------------------->
-      <div class="banner">
-        <div class="banner-table flex-column">
-          <div class="flex-row">
-            <div class="flex-item flex-column">
-              <h2 class="add-top-margin-small">北京大学风云卫星大气成分数据平台：提供主要大气成分的卫星监测数据</h2>
-              <h3 class="text">
-                FengYun Satellite Atmospheric Composition Data Portal @ Peking University
-              </h3>
-            </div>
-          </div>
-        </div>
-      </div>
-    <!-------------------------------------------------------------------------------------------->
-    <div class="content">
-      <div class="content-table flex-column">
-        <!-------------------------------------------------------------------------------------------->
-        <!--Start News-->
-        <div class="flex-row">
-          <div class="flex-item flex-column full-width">
-            <h2>大气成分数据产品 | Data Overview</h2>
-            <h2>地球同步轨道观测 | Geostationary satellite observation</h2>
-	    <hr>
-            <span>
-基于地球同步轨道的大气成分遥感监测是当前大气遥感的新兴领域。我国的新一代地球同步轨道气象卫星风云四号(FY-4)所搭载红外大气垂直探测仪(GIIRS)是国际上第一个地球同步轨道的高光谱红外探测器。其热红外高光谱探测精度高，具有精确反演大气成分浓度的巨大潜力。合作团队研发了适用于GIIRS观测光谱的FY-GeoAIR反演系统，反演得到东亚地区空间分辨率12公里时间分辨率2小时的大气重要气体污染物（一氧化碳和氨气）浓度数据，对推进利用地球同步卫星遥感的大气污染防治和碳循环研究具有重要意义。
-	    </span>
-	    <span>
-The Geostationary Interferometric Infrared Sounder (GIIRS) on board FengYun-4 series satellites is the world's first geostationary hyperspectral infrared sounder. With hyperspectral measurement collected from a geostationary orbit covering the carbon monoxide (CO) absorption window around 2150 cm−1 and the strong ammonia (NH3) absorption window at 955-975 cm-1. GIIRS provides a unique opportunity for monitoring the diurnal variabilities of atmospheric CO and NH3 over eastern Asia.
-	    </span>
-	    <div>
-              <h3>风云四号一氧化碳反演数据 | FY4B/GIIRS CO</h3>
-              <div class="flex-row">
-              <div class="flex-item flex-item-stretch flex-column">
-<iframe src="//player.bilibili.com/player.html?aid=402467698&bvid=BV1Mo4y1P7EN&cid=1169529101&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" height="339"> </iframe>
 
-	      </div>
-              <div class="flex-item flex-item-stretch flex-column">
-                <p class="text">
-              <span>
-一氧化碳(CO)是大气的重要污染物之一。其排放主要来自化石燃料或者生物质的不完全燃烧，是大气污染物/化石燃料温室气体排放的有效示踪气体，也是低层大气臭氧污染物生成的前体物之一, 在对流层大气化学中有重要作用。
-              </span>
-		<hr>
-                <span> 
-CO is a direct product of incomplete combustion primarily from biomass and fossil fuel. It is an effective tracer for the long-range transport of pollution and carbon emissions. Being a precursor to the formation of tropospheric ozone, CO also plays an important role in tropospheric chemistry.
-		</span>
-                <a href="data.html">数据简介和下载链接｜Data Download</a>
-              </p>
-	      </div>
-            </div>
-           </div>
-           </div>
-           <div class="flex-item flex-column full-width">
-            <h3>风云四号氨气反演数据 ｜ FY4B/GIIRS NH<sub>3</sub></h3>
-            <div class="flex-row">
-            <div class="flex-item flex-item-stretch flex-column">
-<iframe src="//player.bilibili.com/player.html?aid=487394873&bvid=BV19N41167NM&cid=1169531412&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" height="339"> </iframe>
+      <article class="doc" id="team">
+        <h1>Team</h1>
+        <p>Introduce your project team members here.</p>
+      </article>
 
-	    </div>
-            <div class="flex-item flex-item-stretch flex-column">
-              <p class="text">
-              <span>
-氨气（NH<sub>3</sub>）在大气化学和全球氮循环中扮演重要角色，其对环境产生了许多负面影响，包括生物多样性的丧失，水体的富营养化和陆地生态系统的酸化，以及影响全球和当地气候的辐射强迫的变化。氨气排放快速增长同时导致空气质量下降，威胁人体健康。
-              </span>
-              <hr>
-              <span>
-NH<sub>3</sub> is a reactive nitrogen compound that plays an important role in the global nitrogen cycle. Changes in NH<sub>3</sub> emissions have many negative environmental impacts on biodiversity, water bodies, terrestrial ecosystems, and global and local climate. In addition, ammonia reacts with acids (e.g., H<sub>2</sub>SO<sub>4</sub>) and produces ammonium containing aerosols that degrade air quality.
-	      </span>
-	      <a href="data.html">数据简介和下载链接 ｜ Data Download</a>
-              </p>
-            </div>
-          </div>
-         </div>
+      <article class="doc" id="data">
+        <h1>Data</h1>
+        <p>Describe your datasets, sources, and data access instructions.</p>
+      </article>
 
-        <!--Start News-->
-        <div class="flex-row">
-          <div class="flex-item flex-column full-width">
-          <h2>太阳同步轨道观测 | Polar obit satellite observation</h2>
-          <hr>
-            <span>
-搭载于风云3号D星、E星和F星的红外高光谱大气垂直探测仪（HIRAS）是我国第二代极轨气象卫星风云三号序列卫星的干涉式红外高光谱探测仪器，它可实现地气系统的高光谱分辨率红外高精度观测。下图展示了2023年7月15日FY-3E/HIRAS黄昏时刻的全球一氧化碳柱总量分布图，可以清晰看出加拿大野火排放的一氧化碳。更多数据正在更新中。
-	    </span>
-	    <span>
-The Hyperspectral Infrared Atmospheric Sounders (HIRASs) on board FengYun 3D, 3E, and 3F measure hyperspectral thermal infrared radiation with daily global coverage. Below shows an example of global CO columns in the late afternnon on 15 July 2023 from FY-3E/HIRAS. More data will be updated soon.
- 	    </span>
-	    <div>
-	    <img src="img/FY3ECO_20230715Afternoon.png" width="828.00">
-	    </div>
-	   </div>
-         </div>
-         </div>
-        </div>
-    <!-------------------------------------------------------------------------------------------->
-      </div>
-      <div class="content-container">
-      <div class="footer">
-        <div class="part2" fix="8">
-          <div class="logo">
-            <img src="img/PekingUniversity.png" width="207.93" height="59.99">
-          
-          </div>                
-          <div id="footinfo" class="info">
-            <span><a style="cursor:default ;">版权所有©北京大学遥感所大气遥感研究组</a></span>
-            <span><a style="cursor:default ;">地址：北京市海淀区颐和园路5号</a></span>
-            <span><a style="cursor:default ;">邮编：100871</a></span>
-            <span><a style="cursor:default ;">邮箱：zczeng@pku.edu.cn</a></span>
-          </div>            
-        </div>
-       </div>
-       </div>
+      <article class="doc" id="publications">
+        <h1>Publications</h1>
+        <p>List your related publications and research outputs here.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footwrap">
+      <div>© <span id="year"></span> FY-AIR. Built with a pure HTML/CSS template.</div>
+      <div><a href="#license">License</a> · <a href="#community">Community</a> · <a href="#changelog">Changelog</a></div>
+    </div>
+  </footer>
+
+  <script>
+    const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+    const btn = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebar');
+    if (btn && sidebar) {
+      btn.addEventListener('click', () => {
+        const open = sidebar.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    }
+  </script>
 </body>
-
 </html>
