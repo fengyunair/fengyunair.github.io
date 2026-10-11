@@ -1,0 +1,105 @@
+---
+---
+@import "{{ site.theme }}";
+
+/* ========== 1.全局配色（对标参考站） ========== */
+:root{
+  --page-bg: #f5f7f9;      /*页面整体浅灰底色，替代刺眼纯白*/
+  --card-bg: #ffffff;      /*内容卡片白色背景*/
+  --text-main:#24292f;     /*正文深灰，不要纯黑#000*/
+  --text‑muted:#57606a;    /*次要文字灰色*/
+  --accent‑blue:#0969da;   /*链接蓝色，学术网站标准低饱和蓝*/
+  --border‑color:#e1e4e8;  /*分割线浅灰*/
+  --shadow‑soft: 0 1px 3px rgba(0,0,0,0.06),0 4px 12px rgba(0,0,0,0.04); /*柔和阴影制造层次感*/
+}
+
+/* ========== 2.页面背景，解决太白问题 ========== */
+body{
+  background-color: var(--page-bg);
+  color: var(--text-main);
+  /* 字体：复刻参考站无衬线学术风格，优先系统Inter，回退sans‑serif */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif !important;
+  line-height:1.65;
+}
+
+/* ==========3.主内容区域改为白色卡片容器，增加阴影、圆角、内边距【核心层次感】 ========== */
+.wrapper {
+  max-width: 960px;
+  margin: 2rem auto 3rem;
+  background: var(--card-bg);
+  padding: 2.2rem 2.8rem !important;
+  border-radius:10px;
+  box-shadow: var(--shadow‑soft);
+}
+
+/* ==========4.导航栏样式优化（深色导航，参考站头部风格） ========== */
+header{
+  background-color:#24292f;
+  color:#fff;
+  padding:1.2rem 0;
+}
+header a{
+  color:#c9d1d9 !important;
+}
+header a:hover{
+  color:#ffffff !important;
+}
+
+/* ==========5.标题层级优化 ========== */
+h1,h2,h3{
+  font-weight:600;
+  color:#111827;
+  margin‑top:2.2rem;
+  margin‑bottom:0.8rem;
+}
+h1{font‑size:2.0rem;}
+h2{font‑size:1.55rem; border‑bottom:1px solid var(--border‑color); padding‑bottom:0.4rem;}
+
+/* ==========6.链接、列表、更新列表美化，适配你的Updates区块 ========== */
+a{
+  color: var(--accent‑blue);
+  text‑decoration:none;
+}
+a:hover{
+  text‑decoration:underline;
+}
+
+ul,ol{
+  padding‑left:1.4rem;
+}
+/* Updates列表轻微背景区分，突出更新公告 */
+ul.updates>li, .post‑content li{
+  margin‑bottom:0.75rem;
+}
+
+/* ==========7.图片容器优化，你的FY‑4/FY‑3卫星示意图适配 ========== */
+img{
+  border‑radius:6px;
+  box‑shadow:0 1px 4px rgba(0,0,0,0.08);
+  max‑width:100%;
+}
+
+/* ==========8.分割线hr美化 ========== */
+hr{
+  border:0;
+  height:1px;
+  background‑color:var(--border‑color);
+  margin:2rem 0;
+}
+
+/* ==========9.页脚优化 ========== */
+footer{
+  color:var(--text‑muted);
+  margin‑top:2rem;
+  font‑size:0.9rem;
+}
+
+/* ==========移动端适配，小屏幕去掉卡片阴影边距 ========== */
+@media(max‑width:720px){
+  .wrapper{
+    margin:0;
+    padding:1.2rem !important;
+    border‑radius:0;
+    box‑shadow:none;
+  }
+}
