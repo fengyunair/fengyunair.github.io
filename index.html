@@ -91,8 +91,21 @@
       color: #000000;
     }
     .navlinks { display:flex; gap:14px; margin-left: 8px; }
-    .navlinks a { color: var(--text); padding:6px 8px; border-radius:8px; font-size: 18px; font-weight:600; }
-    .navlinks a[aria-current="page"], .navlinks a:hover { background: var(--card-bg); text-decoration:none; }
+    .navlinks a {
+      color: var(--text);
+      padding:6px 8px;
+      border-radius:8px;
+      font-size: 18px;
+      font-weight:600;
+      transition: all 0.22s ease; /* 平滑动画 */
+    }
+    .navlinks a[aria-current="page"],
+    .navlinks a:hover {
+      background: var(--card-bg);
+      text-decoration:none;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07); /* 微弱悬浮阴影 */
+      transform: translateY(-1px); /* 轻微上浮 */
+    }
     .spacer { flex: 1; }
     .menu-btn { display:none; margin-left:4px; border: var(--sw) solid var(--border); background:#fff; border-radius:8px; padding:8px 10px; }
     .layout {
